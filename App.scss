@@ -1,0 +1,313 @@
+$secondary-bg:rgba(224, 35, 255, 0.31);
+$main-bg:rgba(253, 209, 209, 1);
+
+
+@mixin box($ht,$wdt){
+	height:$ht;
+	width:$wdt;
+}
+
+@mixin border($bdr-wdt,$bdr-clr,$bdr-style,$bdr-rd){
+	border-width:$bdr-wdt;
+	border-color:$bdr-clr;
+	border-style:$bdr-style;
+	border-radius:$bdr-rd;
+}
+
+.container{
+	background-color:$main-bg;
+	display:flex;
+	flex:1;
+	flex-direction:row;
+	justify-content:center;
+	align-items:center;
+	margin:0;
+}
+
+//End of Universal
+
+.loginContainer{
+	@include box(400,20rem);
+	@include border(1px,#F9FFF9,solid,20px);
+	background:#F9FFF9;
+	display:flex;
+	flex:0 0 auto;
+	flex-direction:column;
+	justify-content:space-between;
+	align-items:center;
+}
+
+.loginTitle{
+	@include box(10%,8rem);
+	@include border(1px,$main-bg,solid,10px);
+	background:$secondary-bg;
+	margin-right:auto;
+	margin-top:20px;
+	display:flex;
+	flex:0 0 auto;
+	align-items:center;
+	justify-content:center;
+}
+
+.loginText{
+	font-size:1.25rem;
+	font-weight:bold;
+	color:black;
+}
+
+
+.userpasscontainer{
+	@include box(150,16rem);
+	display:flex;
+	flex-direction:column;
+	align-items:center;
+	justify-content:space-around;
+	margin-bottom:20px;
+}
+
+.usernamebox{
+	@include box(35,12rem);
+	@include border(1px,white,solid,10px);
+	background:$secondary-bg;
+}
+
+.passwordbox{
+	@include box(35,12rem);
+	@include border(1px,white,solid,10px);
+	align-self:center;
+	background:$secondary-bg;
+	margin-bottom:10px;
+}
+
+.subLoginContainer{
+	display:flex;
+	flex-direction:column;
+	align-items:center;
+	width:20rem;
+}
+
+
+.registersignincontainer{
+	display:flex;
+	flex-direction:row;
+	justify-content:space-between;
+	@include box(45,18rem);
+	margin-bottom:-15px;
+}
+
+.btnColor{
+	background:$secondary-bg;
+	@include box(40px,28px);
+	flex:0.25;
+}
+
+//End of Login
+
+.homeContainer{
+	@include box(48rem,25rem);
+	display:flex;
+	flex-direction:column;
+	align-items:center;
+}
+
+.userDisplayContainer{
+	@include box(15rem,20rem);
+	@include border(1px,#FFF,solid,0);
+	border-radius:1rem 0px 1rem;
+	background:#FFFFFF;
+	margin-top:2.5rem;
+	margin-left:auto;
+	margin-right:auto;
+
+}
+
+.userOptionsContainer{
+	align-self:flex-start;
+	@include box(29.1rem,23rem);
+	background:transparent;
+	display:flex;
+	flex-direction:row;
+	flex-wrap:wrap;
+	justify-content:space-between;
+	align-items:center;
+	align-content:flex-end;
+	margin-top:0.75rem;
+	margin-left:auto;
+	margin-right:auto;
+	
+}
+
+.optionsBox{
+	@include box(7rem,10rem);
+	@include border(1px,transparent,solid,1rem);
+	background:rgba(224, 35, 255, 0.31);
+	margin-left:2px;
+	margin-bottom:4px;
+	margin-right:2px;
+}
+
+.optionsText{
+	margin:auto;
+	font-weight:bold;
+	font-size:1rem;
+}
+
+//End of Home
+
+.registerContainer{
+	@extend .loginContainer;
+	@include box(420,20rem);
+}
+
+.subForm{
+	width:18rem;
+	display:flex;
+	align-items:center;
+	flex-direction:column;
+}
+
+
+
+.formfield{
+	@extend .usernamebox;
+	margin-top:1rem;
+
+}
+
+.registerText{
+	color:black;
+	font-size:1.5rem;
+	align-self:flex-start;
+	margin-left:0.5rem;
+}
+
+.registerSubmitButton{
+	background:$secondary-bg;
+	@include box(40px,6rem);
+	text-align:center;
+	margin-bottom:20px;
+}
+
+.errorText{
+	font-size:0.85rem;
+	color:red;
+	font-weight:bold;
+}
+
+.addUserSubmitButton{
+	margin-bottom:1rem;
+	@include box(40px,100px);
+	border:1px solid transparent;
+}
+
+//End of Adding Reg Users
+
+.passwordScreenContainer{
+	@extend .loginContainer;
+}
+
+.passwordScreenSubmitButton{
+	@extend .registerSubmitButton;
+}
+
+.passwordTitle{
+	@include box(10%,10rem);
+	@include border(1px,#fff,solid,10px);
+	background:#FFF;
+
+}
+
+.passwordTitleText{
+	@extend .loginText;
+	margin-bottom:1rem;
+}
+
+.passwordsErrorText{
+	@extend .errorText;
+}
+
+//End of Password.js
+
+.mapContainer{
+	display:flex;
+	flex:1;
+	background:black;
+}
+
+.mapMain{
+	flex:1;
+}
+
+.navigationConsole{
+	display:flex;
+	flex:0.15;
+	flex-direction:row;
+	justify-content:space-between;
+}
+
+.mapButtons{
+	background:black;
+	@include box(2.5rem,5.5rem);
+	margin:10px;
+
+}
+
+//End of Track.js
+
+
+.innerScrollView{		//ScrollView itself has an unbounded View component inside a bounded View comp
+	width:20rem;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.userListTitle{
+	font-weight:bold;
+	margin-right:auto;
+}
+
+.ListNos{
+	font-weight:bold;
+	font-size:1rem;
+}
+
+//End of ListUsers.js
+
+.editCards{
+	width:18rem;
+	gap:5px;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.editListTitle{
+	@extend .userListTitle;
+}
+
+.EditNos{
+	@extend .ListNos;
+}
+
+.editUserModal{
+	@extend .container;
+}
+
+.editDetailsScreen{
+	@extend .loginContainer;
+}
+
+.editUserTitle{
+	@extend .loginText;
+	margin-right:auto;
+	margin-left:10px;
+}
+
+.editUserFields{
+	@extend .usernamebox;
+}
+
+.editSubForm{
+	@extend .subForm;
+}
+
+//End of EditUsers.js
