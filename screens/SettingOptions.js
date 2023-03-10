@@ -88,6 +88,9 @@ const SettingOptions=()=>{
 		Alert.alert("Confirmation","Delete User?",[{
 			text:"Yes",
 			onPress:async()=>{
+				await axios.delete(`${Config.API}/rootuser`,{data:userDetails})
+				.then((res)=>console.log(res.data),
+				      (err)=>console.log(err))
 				await AsyncStorage.removeItem("kY")
 				dispatch(invert())}
 			},
