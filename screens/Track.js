@@ -8,8 +8,12 @@ import {
 import { Button } from 'react-native-paper';
 import MapboxGL from '@rnmapbox/maps';
 import Geolocation from 'react-native-geolocation-service';
-MapboxGL.setAccessToken(
-'pk.eyJ1IjoiZHRvbXBhbmRhIiwiYSI6ImNsZGtpdjFwbDBucjUzdm56dnF6cm4yODUifQ.JKncK_LfPhdHWuDQqGghwQ')
+
+import Config from 'react-native-config';
+
+
+MapboxGL.setAccessToken(Config.MAP_GL) 
+//'pk.eyJ1IjoiZHRvbXBhbmRhIiwiYSI6ImNsZGtpdjFwbDBucjUzdm56dnF6cm4yODUifQ.JKncK_LfPhdHWuDQqGghwQ')
 
 const Track=()=>{
 
@@ -35,8 +39,8 @@ const Track=()=>{
 	},[])
 
 
-	const getLocation=()=>{
-		Geolocation.getCurrentPosition((position)=>{
+	const getLocation=async()=>{
+		await Geolocation.getCurrentPosition((position)=>{
 					const {latitude,longitude}=position.coords
 					setInitialCoords({latitude,longitude})},	
 				(err)=>console.log(err))}

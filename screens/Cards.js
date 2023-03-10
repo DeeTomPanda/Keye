@@ -24,6 +24,7 @@ import {
 	Button,
 	TextInput
 } from 'react-native-paper';
+import Config from 'react-native-config';
 
 const Cards=({list})=>{
 
@@ -32,9 +33,9 @@ const Cards=({list})=>{
 	const editUser=async(item)=>{
 		Keyboard.dismiss()
 		setShowModal(false)
-		item["primeDL"]=primeDL
-		item["orig_DL"]=user.DL_no
-		await axios.patch('https://keye.fly.dev/edituser',item)
+		item["primeDL"]=primeDL		//root user's DL_no
+		item["orig_DL"]=user.DL_no	//non-root user's old DL_no
+		await axios.patch(`${Config.API}/edituser`,item)
 		.then((res)=>console.log(res.status),
 			(err)=>console.log(err))
 		formik.resetForm()

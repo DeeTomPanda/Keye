@@ -17,6 +17,7 @@ import {
 } from 'react-native-paper';
 import { delAdditionalUsers } from './../reducers/rootReducer.js';
 import styles from './../App.scss';
+import Config from "react-native-config";
 
 const Cards=({list})=>{
 
@@ -25,7 +26,7 @@ const Cards=({list})=>{
 	const delUser=async (item)=>{
 		let item_={...item}
 		item_["DLno"]=DLno
-		await axios.delete("https://keye.fly.dev/deleteuser",{data:item_})
+		await axios.delete(`${Config.API}/deleteuser`,{data:item_})
 		.then((res)=>{
 			if(res.status==201)
 			   dispatch(delAdditionalUsers(item))}

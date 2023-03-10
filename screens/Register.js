@@ -24,6 +24,7 @@ import {
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import styles from './../App.scss';
+import Config from 'react-native-config';
 
 const Register=({navigation})=>{
 
@@ -31,7 +32,7 @@ const Register=({navigation})=>{
 	console.log(useSelector((state)=>state.newUserDetails))
 	
 	const sendData=async (data)=>{
-		await axios.post("https://keye.fly.dev/register",data)
+		await axios.post(`${Config.API}/register`,data)
 		     .then((res)=>{
 			     if(res.status==201){
 			     	dispatch(registerUser(data))

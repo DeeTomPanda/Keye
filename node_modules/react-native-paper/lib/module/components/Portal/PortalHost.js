@@ -1,6 +1,3 @@
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return typeof key === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (typeof input !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (typeof res !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 import * as React from 'react';
 import { View, StyleSheet } from 'react-native';
 import PortalManager from './PortalManager';
@@ -29,55 +26,7 @@ export const PortalContext = /*#__PURE__*/React.createContext(null);
  * Here any `Portal` elements under `<App />` are rendered alongside `<App />` and will appear above `<App />` like a `Modal`.
  */
 export default class PortalHost extends React.Component {
-  constructor() {
-    super(...arguments);
-    _defineProperty(this, "setManager", manager => {
-      this.manager = manager;
-    });
-    _defineProperty(this, "mount", children => {
-      const key = this.nextKey++;
-      if (this.manager) {
-        this.manager.mount(key, children);
-      } else {
-        this.queue.push({
-          type: 'mount',
-          key,
-          children
-        });
-      }
-      return key;
-    });
-    _defineProperty(this, "update", (key, children) => {
-      if (this.manager) {
-        this.manager.update(key, children);
-      } else {
-        const op = {
-          type: 'mount',
-          key,
-          children
-        };
-        const index = this.queue.findIndex(o => o.type === 'mount' || o.type === 'update' && o.key === key);
-        if (index > -1) {
-          this.queue[index] = op;
-        } else {
-          this.queue.push(op);
-        }
-      }
-    });
-    _defineProperty(this, "unmount", key => {
-      if (this.manager) {
-        this.manager.unmount(key);
-      } else {
-        this.queue.push({
-          type: 'unmount',
-          key
-        });
-      }
-    });
-    _defineProperty(this, "nextKey", 0);
-    _defineProperty(this, "queue", []);
-    _defineProperty(this, "manager", void 0);
-  }
+  static displayName = 'Portal.Host';
   componentDidMount() {
     const manager = this.manager;
     const queue = this.queue;
@@ -99,6 +48,51 @@ export default class PortalHost extends React.Component {
       }
     }
   }
+  setManager = manager => {
+    this.manager = manager;
+  };
+  mount = children => {
+    const key = this.nextKey++;
+    if (this.manager) {
+      this.manager.mount(key, children);
+    } else {
+      this.queue.push({
+        type: 'mount',
+        key,
+        children
+      });
+    }
+    return key;
+  };
+  update = (key, children) => {
+    if (this.manager) {
+      this.manager.update(key, children);
+    } else {
+      const op = {
+        type: 'mount',
+        key,
+        children
+      };
+      const index = this.queue.findIndex(o => o.type === 'mount' || o.type === 'update' && o.key === key);
+      if (index > -1) {
+        this.queue[index] = op;
+      } else {
+        this.queue.push(op);
+      }
+    }
+  };
+  unmount = key => {
+    if (this.manager) {
+      this.manager.unmount(key);
+    } else {
+      this.queue.push({
+        type: 'unmount',
+        key
+      });
+    }
+  };
+  nextKey = 0;
+  queue = [];
   render() {
     return /*#__PURE__*/React.createElement(PortalContext.Provider, {
       value: {
@@ -115,7 +109,6 @@ export default class PortalHost extends React.Component {
     }));
   }
 }
-_defineProperty(PortalHost, "displayName", 'Portal.Host');
 const styles = StyleSheet.create({
   container: {
     flex: 1

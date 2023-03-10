@@ -27,7 +27,7 @@ const userStateSlice=createSlice({
 				name,
 				DL_no:DLno,
 				Aadhar_No:AadharNo,
-				permittedUsers:addlUsers_
+				permittedUsers:addlUsers_,
 			}
 		},
 		invert(state,action){
@@ -56,10 +56,18 @@ const userStateSlice=createSlice({
 			state.userDetails.permittedUsers[index]={DL_no,Aadhar_no,name}
 
 		},
-		editUser(state,action){
+		editRootUser(state,action){
+			const {DL_no,Aadhar_no,name}=action.payload
+			console.log("Edited root",action.payload)
+			state.userDetails={
+				...state.userDetails,
+				name,
+				DL_no,
+				Aadhar_No:Aadhar_no
+				}
 		}
 	}
 })
 
-export const {signINUser,invert,registerUser,editAdditionalUsers,addAdditionalUsers,delAdditionalUsers}=userStateSlice.actions
+export const {signINUser,invert,registerUser,editRootUser,editAdditionalUsers,addAdditionalUsers,delAdditionalUsers}=userStateSlice.actions
 export default userStateSlice.reducer

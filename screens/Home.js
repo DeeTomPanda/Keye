@@ -15,7 +15,7 @@ const options=[
 	{title:"Add Users",onPress:"AddUser"},
 	{title:"Track",onPress:"Track"},
 	{title:"List Users",onPress:"ListUsers"},
-	{title:"Settings",onPress:""},
+	{title:"Settings",onPress:"Settings"},
 	{title:"Edit Users",onPress:"EditUsers"},
 	{title:"History",onPress:""} ]
 

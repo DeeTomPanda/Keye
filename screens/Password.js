@@ -18,6 +18,7 @@ import {
 	Button,
 	Chip
 } from 'react-native-paper';
+import Config from "react-native-config";
 
 const Password=({headerText="Set Password",navigation,route})=>{
 	
@@ -32,7 +33,7 @@ const Password=({headerText="Set Password",navigation,route})=>{
                 if(formik.values.password!=formik.values.password2)
 			Alert.alert("Passwords don't match")
 		else
-			await axios.post("https://keye.fly.dev/register",{checked:true,
+			await axios.post(`${API}/register`,{checked:true,
 						data,pass:formik.values.password})
 			     .then((res)=>{
 				     if(res.status==201){
@@ -80,10 +81,11 @@ const Password=({headerText="Set Password",navigation,route})=>{
 		         </TextInput>
 		         <Text style={styles.passwordsErrorText}>{formik.errors.password2}</Text>
 		      </View>
-		      <Chip style={styles.passwordScreenSubmitButton} 
+		      <Chip textStyle={{align:"center"}}
+			    style={styles.passwordScreenSubmitButton} 
 			    mode="outlined"
 			    onPress={formik.handleSubmit}>
-		      {"Press me "}
+		         <Text>{"Submit"}</Text>
 		      </Chip>
 		   </View>
 		</View>)

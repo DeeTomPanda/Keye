@@ -2,6 +2,7 @@ function _extends() { _extends = Object.assign ? Object.assign.bind() : function
 import * as React from 'react';
 import { StyleSheet, Text as NativeText } from 'react-native';
 import { useInternalTheme } from '../../../core/theming';
+import { forwardRef } from '../../../utils/forwardRef';
 // @component-group Typography
 
 /**
@@ -37,5 +38,5 @@ const styles = StyleSheet.create({
     textAlign: 'left'
   }
 });
-export default /*#__PURE__*/React.forwardRef(Text);
+export default forwardRef(Text);
 //# sourceMappingURL=Text.js.map

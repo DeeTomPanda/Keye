@@ -107,25 +107,33 @@ const getSegmentedButtonBorderWidth = _ref6 => {
 const getSegmentedButtonTextColor = _ref7 => {
   let {
     theme,
-    disabled
+    disabled,
+    checked,
+    checkedColor,
+    uncheckedColor
   } = _ref7;
   if (theme.isV3) {
     if (disabled) {
       return theme.colors.onSurfaceDisabled;
     }
-    return theme.colors.onSurface;
-  } else {
-    if (disabled) {
-      return theme.colors.disabled;
+    if (checked) {
+      return checkedColor ?? theme.colors.onSecondaryContainer;
     }
-    return theme.colors.primary;
+    return uncheckedColor ?? theme.colors.onSurface;
   }
+  if (disabled) {
+    return theme.colors.disabled;
+  }
+  // Primary color is used for checked state too.
+  return theme.colors.primary;
 };
 export const getSegmentedButtonColors = _ref8 => {
   let {
     theme,
     disabled,
-    checked
+    checked,
+    checkedColor,
+    uncheckedColor
   } = _ref8;
   const backgroundColor = getSegmentedButtonBackgroundColor({
     theme,
@@ -138,7 +146,10 @@ export const getSegmentedButtonColors = _ref8 => {
   });
   const textColor = getSegmentedButtonTextColor({
     theme,
-    disabled
+    disabled,
+    checked,
+    checkedColor,
+    uncheckedColor
   });
   const borderWidth = getSegmentedButtonBorderWidth({
     theme

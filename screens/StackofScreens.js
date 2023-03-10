@@ -7,11 +7,13 @@ import Password from './Password.js';
 import Track from './Track.js';
 import ListUsers from './ListUsers.js';
 import EditUsers from './EditUsers.js';
+import SettingOptions from './SettingOptions.js';
 import { Modal } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useSelector,useDispatch } from 'react-redux';
 import { invert } from './../reducers/rootReducer.js';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const StackofScreens=()=>{
 
@@ -26,21 +28,21 @@ const StackofScreens=()=>{
 		  showLogin?(
 		      <Stack.Group>
         	         <Stack.Screen
-          		   name="Login"
+          		   name={"Login"}
           		   component={Login}/>
 		         <Stack.Screen
-			   name="Register"
+			   name={"Register"}
 			   component={Register}/>
 			<Stack.Screen
-			   name="Password"
+			   name={"Password"}
 			   component={Password}/>
 		      </Stack.Group>)
 		:(    <Stack.Group>     
 		         <Stack.Screen
-			   name="Home"
+			   name={"Home"}
 			   component={Home}/>
 			 <Stack.Screen
-			   name="AddUser"
+			   name={"AddUser"}
 			   component={AddUser}/>
 			 <Stack.Screen
 			   name={"Track"}
@@ -51,6 +53,9 @@ const StackofScreens=()=>{
 			<Stack.Screen
 			   name={"EditUsers"}
 			   component={EditUsers}/>
+			<Stack.Screen
+			   name={"Settings"}
+			   component={SettingOptions}/>
 		      </Stack.Group>)
 		}
 		   </Stack.Navigator>

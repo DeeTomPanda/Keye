@@ -23,6 +23,7 @@ import {
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import styles from './../App.scss';
+import Config from "react-native-config";
 
 const AddUser=()=>{
 
@@ -33,7 +34,7 @@ const AddUser=()=>{
 
 
 	const sendData=async (data)=>{
-		await axios.patch("https://keye.fly.dev/addreguser",{
+		await axios.patch(`${Config.API}/addreguser`,{
 						data,
 						origDL_no:state.userDetails.DL_no})
 		      .then((res)=>{

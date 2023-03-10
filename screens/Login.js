@@ -25,7 +25,8 @@ import {
 	TextInput,
 	Button
 } from 'react-native-paper';
-
+import Config from "react-native-config";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login=({navigation})=>{
 
@@ -36,16 +37,31 @@ const Login=({navigation})=>{
 	const dispatch=useDispatch()
 	const stateObj=useSelector((state)=>state)
 
+	
+
+	React.useEffect(()=>{
+		const getData=async()=>{
+		const val=await AsyncStorage.getItem('kY')
+		if(!val)
+			return
+		else{
+			const loginDetails=JSON.parse(val)
+			verifyUser(loginDetails)}
+		} 
+		getData()}
+		,[])
+
 	const verifyUser=async(loginDetails)=>{
 		setIsLoading(true)
-		await axios.post("https://keye.fly.dev/login",loginDetails).
-			then((res)=>{
+		await axios.post(`${Config.API}/login`,loginDetails).
+			then(async(res)=>{
 				setIsLoading(false)
 				if(res.status==201){   ///Send data to store
 					const {AadharNo,DLno,name,addlUsers}=res.data
 					const dataObj={AadharNo,DLno,name,addlUsers}
 					dispatch(signINUser(dataObj))
-					dispatch(invert())}
+					dispatch(invert())
+					await AsyncStorage.setItem("kY",JSON.stringify(loginDetails))}
 				else{
 					setMsg("Error with server")
 					setVisible(true)
