@@ -5,6 +5,8 @@ const userStateSlice=createSlice({
 	name:'redux_main',
 	initialState:{
 		loggedIn:true,
+		CarNO:'',
+		starts:'',
 		userDetails:{
 			name:'',
 			DL_no:'',
@@ -14,14 +16,15 @@ const userStateSlice=createSlice({
 	},
 	reducers:{
 		signINUser(state,action){
-			const {name,DLno,AadharNo,addlUsers}=action.payload
+			const {name,CarNO,DLno,AadharNo,addlUsers}=action.payload
 			let addlUsers_=addlUsers.map((v)=>({
 					name:v.name,
 					DL_no:v.DLno,
 					Aadhar_no:v.AadharNo,
-					id:v._id})
+					id:v._id,
+					starts:v.starts})
 			)
-			
+			state.CarNO=CarNO
 			state.userDetails={
 				...state.userDetails,
 				name,
@@ -34,8 +37,9 @@ const userStateSlice=createSlice({
 			state.loggedIn=!state.loggedIn
 		},
 		registerUser(state,action){
-			const {email,name,DL_no,Aadhar_no}=action.payload
+			const {email,CarNO,name,DL_no,Aadhar_no}=action.payload
 			state.userDetails={name,email,DL_no,Aadhar_no}
+			state.CarNO=CarNO
 		},
 		addAdditionalUsers(state,action){
 			const {name,DL_no,Aadhar_no}=action.payload

@@ -36,6 +36,7 @@ const AddUser=()=>{
 	const sendData=async (data)=>{
 		await axios.patch(`${Config.API}/addreguser`,{
 						data,
+						CarNO:state.CarNO,
 						origDL_no:state.userDetails.DL_no})
 		      .then((res)=>{
 			      if(res.status==201){
@@ -47,8 +48,7 @@ const AddUser=()=>{
 	
 	const validationSchema_=Yup.object().shape({
 		name:Yup.string().min(2).required('required'),
-		DL_no:Yup.string().min(15).max(15).required('required'),
-		Aadhar_no:Yup.string().min(12).max(12).required('required')
+		DL_no:Yup.string().min(14).max(14).required('required'),
 		})
 	
 
@@ -56,8 +56,7 @@ const AddUser=()=>{
 	const formik=useFormik({
 		initialValues:{
 			name:'',
-			DL_no:'',
-			Aadhar_no:''},
+			DL_no:''},
 		validationSchema:validationSchema_,
 		onSubmit:sendData}
 	)
@@ -80,13 +79,6 @@ const AddUser=()=>{
 				onChangeText={(ch)=>formik.setFieldValue('DL_no',ch)}/>
 			   <Text style={styles.errorText}>{formik.errors.DL_no}</Text>
 		        </View>
-			<View style={styles.subForm}>
-		           <TextInput
-		 		style={styles.formfield}
-				placeholder={"AadharNo"}
-				onChangeText={(ch)=>formik.setFieldValue('Aadhar_no',ch)}/>
-			   <Text style={styles.errorText}>{formik.errors.Aadhar_no}</Text>
-			</View>
 			<Button
 				style={styles.addUserSubmitButton}
 				onPress={formik.handleSubmit}>

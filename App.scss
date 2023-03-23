@@ -184,7 +184,7 @@ $main-bg:rgba(253, 209, 209, 1);
 .registerSubmitButton{
 	background:$secondary-bg;
 	@include box(40px,6rem);
-	text-align:center;
+	text-justify:center;
 	margin-bottom:20px;
 }
 
@@ -208,6 +208,7 @@ $main-bg:rgba(253, 209, 209, 1);
 
 .passwordScreenSubmitButton{
 	@extend .registerSubmitButton;
+	align-items:center;
 }
 
 .passwordTitle{

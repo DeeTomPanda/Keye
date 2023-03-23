@@ -30,20 +30,22 @@ const SettingOptions=()=>{
 	const userDetails=useSelector((state)=>({
 		name:state.userDetails.name,
 		DLno:state.userDetails.DL_no,
-		AadharNo:state.userDetails.Aadhar_No})
+		AadharNo:state.userDetails.Aadhar_No,
+		CarNO:state.CarNO})
 	)
 
 	const dispatch=useDispatch()
 
 	const validationSchema_=Yup.object().shape({
                     name:Yup.string().min(2).required('required'),
-                    DL_no:Yup.string().min(15).max(15).required('required'),
+                    DL_no:Yup.string().min(14).max(14).required('required'),
                     Aadhar_no:Yup.string().min(12).max(12).required('required')
                     })
   
 	const editRoot=async(rootData)=>{
                   console.log("Clicked edituser")
 		  rootData['prevDL_no']=userDetails.DLno
+		  rootData['CarNO']=userDetails.CarNO
 		  console.log(rootData)
 		  await axios.patch(`${Config.API}/editrootuser`,rootData)
 		  .then((res)=>{

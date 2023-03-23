@@ -33,7 +33,7 @@ const Password=({headerText="Set Password",navigation,route})=>{
                 if(formik.values.password!=formik.values.password2)
 			Alert.alert("Passwords don't match")
 		else
-			await axios.post(`${API}/register`,{checked:true,
+			await axios.post(`${Config.API}/register`,{checked:true,
 						data,pass:formik.values.password})
 			     .then((res)=>{
 				     if(res.status==201){
@@ -81,7 +81,7 @@ const Password=({headerText="Set Password",navigation,route})=>{
 		         </TextInput>
 		         <Text style={styles.passwordsErrorText}>{formik.errors.password2}</Text>
 		      </View>
-		      <Chip textStyle={{align:"center"}}
+		      <Chip textStyle={{textJustify:"center"}}
 			    style={styles.passwordScreenSubmitButton} 
 			    mode="outlined"
 			    onPress={formik.handleSubmit}>

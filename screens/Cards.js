@@ -30,9 +30,11 @@ const Cards=({list})=>{
 
 	const dispatch=useDispatch()
 	const primeDL=useSelector((state)=>state.userDetails.DL_no)
+	const CarNO=useSelector((state)=>state.CarNO)
 	const editUser=async(item)=>{
 		Keyboard.dismiss()
 		setShowModal(false)
+		item["CarNO"]=CarNO
 		item["primeDL"]=primeDL		//root user's DL_no
 		item["orig_DL"]=user.DL_no	//non-root user's old DL_no
 		await axios.patch(`${Config.API}/edituser`,item)
@@ -43,8 +45,7 @@ const Cards=({list})=>{
 
 	 const validationSchema_=Yup.object().shape({
                   name:Yup.string().min(2).required('required'),
-                  DL_no:Yup.string().min(15).max(15).required('required'),
-                  Aadhar_no:Yup.string().min(12).max(12).required('required')
+                  DL_no:Yup.string().min(14).max(14).required('required'),
                   })
 
 
@@ -55,7 +56,6 @@ const Cards=({list})=>{
 		enableReinitialize:true,
 		initialValues:{
 			name:user.name,
-			Aadhar_no:user.Aadhar_no,
 			DL_no:user.DL_no},
 		onSubmit:editUser,
 		validationSchema:validationSchema_
@@ -73,7 +73,6 @@ const Cards=({list})=>{
 		        </Card.Title>
 			<Card.Content>
 			   <Text style={styles.EditNos}>{`DL_NO: ${v.DL_no}`}</Text>
-			   <Text style={styles.EditNos}>{`Aadhar_No: ${v.Aadhar_no}`}</Text>
 			</Card.Content>
 			<Card.Actions>
 			   <Button
@@ -118,13 +117,6 @@ const Cards=({list})=>{
 				value={formik.values.DL_no}
 				onChangeText={(ch)=>formik.setFieldValue('DL_no',ch)}/>
 			    <Text style={styles.errorText}>{formik.errors.DL_no}</Text>
-		         </View>
-		         <View style={styles.editSubForm}>
-			    <TextInput
-				style={styles.editUserFields}
-				value={String(formik.values.Aadhar_no)}
-				onChangeText={(ch)=>formik.setFieldValue('Aadhar_no',Number(ch))}/>
-			    <Text style={styles.errorText}>{formik.errors.Aadhar_no}</Text>
 		         </View>
 		         <Button
 		  	    onPress={formik.handleSubmit}>

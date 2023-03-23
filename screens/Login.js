@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios'
 import styles from './../App.scss';
+import ChangePass from './ChangePass.js';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { 
@@ -17,7 +18,8 @@ import {
 	SafeAreaView,
 	KeyboardAvoidingView,
 	Alert,
-	Keyboard
+	Keyboard,
+	Modal
 } from 'react-native';
 import { 
 	ActivityIndicator,
@@ -33,6 +35,7 @@ const Login=({navigation})=>{
 	const [isLoading,setIsLoading]=React.useState(false)
 	const [visible,setVisible]=React.useState(false)
 	const [msg,setMsg]=React.useState('')
+	const [modal,setModal]=React.useState(false)
 
 	const dispatch=useDispatch()
 	const stateObj=useSelector((state)=>state)
@@ -57,8 +60,8 @@ const Login=({navigation})=>{
 			then(async(res)=>{
 				setIsLoading(false)
 				if(res.status==201){   ///Send data to store
-					const {AadharNo,DLno,name,addlUsers}=res.data
-					const dataObj={AadharNo,DLno,name,addlUsers}
+					const {AadharNo,CarNO,DLno,name,addlUsers}=res.data
+					const dataObj={CarNO,AadharNo,DLno,name,addlUsers}
 					dispatch(signINUser(dataObj))
 					dispatch(invert())
 					await AsyncStorage.setItem("kY",JSON.stringify(loginDetails))}
@@ -83,7 +86,7 @@ const Login=({navigation})=>{
 	}
 
 	const validationSchema_=Yup.object().shape({
-		DL_no:Yup.string().min(15).max(15).required('Required'),
+		DL_no:Yup.string().min(14).max(14).required('Required'),
 		password:Yup.string().required('Required')})
 
 	const formik=useFormik({
@@ -96,6 +99,15 @@ const Login=({navigation})=>{
 
 	return(
 		<SafeAreaView style={styles.container}>
+		   <Modal
+        	         animationType="slide"
+        		 transparent={true}
+        		 visible={modal}
+        		 onRequestClose={() => {
+          			setModal(!modal)
+        	   }}>
+		      <ChangePass/>
+		   </Modal>
 		   <KeyboardAvoidingView behavior={"height"}>
 		   {!isLoading?(
 	              <View style={styles.loginContainer}>
@@ -133,7 +145,9 @@ const Login=({navigation})=>{
 
 			   </Button>
 		        </View>
-			   <Button mode={'Text'}>{'Forgot Pass?'}</Button>
+			   <Button 
+			   mode={'Text'}
+			   onPress={()=>setModal(true)}>{'Forgot Pass?'}</Button>
 			<Snackbar visible={visible}
                                   duration={1200}
                                   onDismiss={()=>setVisible(false)}>

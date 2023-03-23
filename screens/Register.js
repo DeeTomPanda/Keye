@@ -29,8 +29,7 @@ import Config from 'react-native-config';
 const Register=({navigation})=>{
 
 	const dispatch=useDispatch()
-	console.log(useSelector((state)=>state.newUserDetails))
-	
+
 	const sendData=async (data)=>{
 		await axios.post(`${Config.API}/register`,data)
 		     .then((res)=>{
@@ -46,9 +45,8 @@ const Register=({navigation})=>{
 	const validationSchema=Yup.object().shape({
 		email:Yup.string().min(2).email('invalid').required('required'),
 		name:Yup.string().min(2).required('required'),
-		DL_no:Yup.string().min(15).max(15).required('required'),
-		Aadhar_no:Yup.string().required().matches(/^[0-9]+$/,"Must be only digits")
-			  .min(12, 'Must be exactly 12 digits').max(12, 'Must be exactly 12 digits')}
+		DL_no:Yup.string().min(14).max(14).required('required'),
+		CarNO:Yup.string().required().min(10).max(12).required('required')}
 	)
 
 	
@@ -57,7 +55,7 @@ const Register=({navigation})=>{
 			email:'',
 			name:'',
 			DL_no:'',
-			Aadhar_no:''},
+			CarNO:''},
 		validationSchema:validationSchema,
 		onSubmit:sendData}
 	)
@@ -91,9 +89,9 @@ const Register=({navigation})=>{
 			<View style={styles.subForm}>
 		           <TextInput
 		 		style={styles.formfield}
-				placeholder={"AadharNo"}
-				onChangeText={(ch)=>formik.setFieldValue('Aadhar_no',ch)}/>
-			   <Text style={styles.errorText}>{formik.errors.Aadhar_no}</Text>
+				placeholder={"CarNo"}
+				onChangeText={(ch)=>formik.setFieldValue('CarNO',ch)}/>
+			   <Text style={styles.errorText}>{formik.errors.CarNO}</Text>
 			</View>
 			<Button
 				style={styles.registerSubmitButton}

@@ -8,6 +8,7 @@ import Track from './Track.js';
 import ListUsers from './ListUsers.js';
 import EditUsers from './EditUsers.js';
 import SettingOptions from './SettingOptions.js';
+import History from './History.js';
 import { Modal } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -56,6 +57,9 @@ const StackofScreens=()=>{
 			<Stack.Screen
 			   name={"Settings"}
 			   component={SettingOptions}/>
+			<Stack.Screen
+			   name={"History"}
+			   component={History}/>
 		      </Stack.Group>)
 		}
 		   </Stack.Navigator>

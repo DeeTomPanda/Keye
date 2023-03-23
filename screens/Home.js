@@ -17,7 +17,7 @@ const options=[
 	{title:"List Users",onPress:"ListUsers"},
 	{title:"Settings",onPress:"Settings"},
 	{title:"Edit Users",onPress:"EditUsers"},
-	{title:"History",onPress:""} ]
+	{title:"History",onPress:"History"} ]
 
 	return(
 		<View style={styles.userOptionsContainer}>
@@ -39,6 +39,8 @@ const options=[
 const Home=({navigation})=>{
 
 	const userState=useSelector((state)=>state.userDetails)
+	const CarNO=useSelector((state)=>state.CarNO)
+	const starts=useSelector((state)=>state.starts)
 
 	React.useEffect(()=>{
 		const backEvent=()=>{
@@ -61,6 +63,7 @@ const Home=({navigation})=>{
 		   <View style={styles.homeContainer}>
 		      <View style={styles.userDisplayContainer}>
 		         <Text style={styles.optionsText}>{`Welcome ${userState.name}`}</Text>
+			 <Text style={styles.optionsText}>{`Vehicle No ${CarNO}`}</Text>
 		      </View>
 		      <Options navigation={navigation}/>
 		   </View>
